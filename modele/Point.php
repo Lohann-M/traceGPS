@@ -45,4 +45,48 @@ class Point
         $msg .= "altitude : " . $this->altitude . "<br>";
         return $msg;
     }
+    // ------------------------------------------------------------------------------------------------------
+    // ---------------------------------------- Méthodes statiques ------------------------------------------
+    // ------------------------------------------------------------------------------------------------------
+    // Méthode statique privée
+    // calcule la distance (en Km) entre 2 points géographiques passés avec 4 paramètres :
+    // $latitude1 : latitude point 1 (en degrés décimaux)
+    // $longitude1 : longitude point 1 (en degrés décimaux)
+    // $latitude2 : latitude point 2 (en degrés décimaux)
+    // $longitude2 : longitude point 2 (en degrés décimaux)
+    // fournit : la distance (en Km) entre les 2 points
+    private static function getDistanceBetween ($latitude1, $longitude1, $latitude2, $longitude2) {
+        if (abs($latitude1 - $latitude2) < 0.000001 && abs($longitude1 - $longitude2) < 0.000001) return 0;
+        try
+        { $a = pi() / 180;
+            $latitude1 = $latitude1 * $a;
+            $latitude2 = $latitude2 * $a;
+            $longitude1 = $longitude1 * $a;
+
+            $longitude2 = $longitude2 * $a;
+            $t1 = sin($latitude1) * sin($latitude2);
+            $t2 = cos($latitude1) * cos($latitude2);
+            $t3 = cos($longitude1 - $longitude2);
+            $t4 = $t2 * $t3;
+            $t5 = $t1 + $t4;
+            $rad_dist = atan(-$t5 / sqrt(-$t5 * $t5 + 1)) + 2 * atan(1);
+            return ($rad_dist * 3437.74677 * 1.1508) * 1.6093470878864446;
+        }
+        catch (Exception $ex)
+        { return 0;
+        }
+    }
+
+    // Méthode statique publique
+    // calcule la distance (en Km) entre 2 points géographiques passés en paramètres :
+    // point1 : le premier point
+    // point2 : le second point
+    // fournit : la distance (en Km) entre les 2 points
+    public static function getDistance (Point $point1, Point $point2) {
+        self::getDistanceBetween(
+            $point1->getLatitude(),
+            $point1->getLongitude(),
+            $point2->getLatitude(),
+            $point2->getLongitude());
+    }
 }
