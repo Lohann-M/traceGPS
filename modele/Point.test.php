@@ -4,6 +4,8 @@
 // Rôle : test de la classe Point.php
 // Dernière mise à jour : 18/12/2021 par dPlanchet
 // inclusion de la classe Point
+use modele\Point;
+
 include_once ('Point.php');
 ?>
 <!DOCTYPE html>

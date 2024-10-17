@@ -1,8 +1,14 @@
 <?php
 namespace modele;
+// Projet TraceGPS
+// fichier : modele/Point.php
+// Rôle : la classe Point représente un point géographique
+// Dernière mise à jour : 9/7/2019 par dP
+use Exception;
+
 class Point
 {
-// ------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------
     // ---------------------------------- Attributs protégés de la classe -----------------------------------
     // ------------------------------------------------------------------------------------------------------
 
@@ -15,7 +21,8 @@ class Point
     // ----------------------------------------- Constructeur -----------------------------------------------
     // ------------------------------------------------------------------------------------------------------
 
-    public function __construct($uneLatitude, $uneLongitude, $uneAltitude) {
+    public function __construct($uneLatitude, $uneLongitude, $uneAltitude)
+    {
         $this->latitude = $uneLatitude;
         $this->longitude = $uneLongitude;
         $this->altitude = $uneAltitude;
@@ -39,12 +46,14 @@ class Point
     // ------------------------------------------------------------------------------------------------------
 
     // Fournit une chaine contenant toutes les données de l'objet
-    public function toString() {
+    public function toString(): string
+    {
         $msg = "latitude : " . $this->latitude . "<br>";
         $msg .= "longitude : " . $this->longitude . "<br>";
         $msg .= "altitude : " . $this->altitude . "<br>";
         return $msg;
     }
+
     // ------------------------------------------------------------------------------------------------------
     // ---------------------------------------- Méthodes statiques ------------------------------------------
     // ------------------------------------------------------------------------------------------------------
@@ -82,11 +91,18 @@ class Point
     // point1 : le premier point
     // point2 : le second point
     // fournit : la distance (en Km) entre les 2 points
-    public static function getDistance (Point $point1, Point $point2) {
-        self::getDistanceBetween(
+    public static function getDistance (Point $point1, Point $point2)
+    {
+        // utilise GetDistanceBetween pour calculer la distance entre deux points
+        return self::getDistanceBetween(
             $point1->getLatitude(),
             $point1->getLongitude(),
             $point2->getLatitude(),
-            $point2->getLongitude());
+            $point2->getLongitude()
+        );
     }
-}
+
+
+}// fin de la classe Point
+// ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
+// d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!
